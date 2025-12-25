@@ -74,6 +74,7 @@ const Sidebar = ({ isOpen, onClose }) => {
           active={location.pathname.startsWith("/penduduk")}
           onClick={() => toggleMenu("penduduk")}
         >
+          <SubMenuItem label="Daftar Penduduk" to="/penduduk/semua" />
           <SubMenuItem label="Penduduk Tetap" to="/penduduk/tetap" />
           <SubMenuItem label="Penduduk Datang" to="/penduduk/datang" />
           <SubMenuItem label="Penduduk Pindah" to="/penduduk/pindah" />
