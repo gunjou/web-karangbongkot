@@ -65,7 +65,7 @@ const Sidebar = ({ isOpen, onClose }) => {
 
       {/* ===== MENU ===== */}
       <nav className="p-4 space-y-1 text-sm">
-        <MenuItem icon={LayoutDashboard} label="Dashboard" to="/" />
+        <MenuItem icon={LayoutDashboard} label="Dashboard" to="/dashboard" />
 
         <MenuDropdown
           icon={Users}
