@@ -1,12 +1,16 @@
-import "./App.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import MainLayout from "./components/layout/MainLayout";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   return (
-    <div className="App">
-      <p className="mt-5 text-red-600 font-bold font-unerline text-2xl hover:text-blue-600 hover:cursor-pointer">
-        Ini template utama
-      </p>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<MainLayout />}>
+          <Route path="/" element={<Dashboard />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
