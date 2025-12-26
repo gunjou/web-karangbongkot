@@ -7,10 +7,12 @@ import {
   Settings,
   ChevronDown,
   ChevronUp,
+  MessageSquare,
+  Wallet,
 } from "lucide-react";
 import { NavLink, useLocation } from "react-router-dom";
 
-import headerImage from "../../assets/icon.png"; // sesuaikan path
+import headerImage from "../../assets/icon.png";
 
 const Sidebar = ({ isOpen, onClose }) => {
   const location = useLocation();
@@ -18,8 +20,11 @@ const Sidebar = ({ isOpen, onClose }) => {
   const [openMenu, setOpenMenu] = useState(() => {
     if (location.pathname.startsWith("/penduduk")) return "penduduk";
     if (location.pathname.startsWith("/surat")) return "surat";
+    if (location.pathname.startsWith("/pengaduan")) return "pengaduan";
+    if (location.pathname.startsWith("/keuangan")) return "keuangan";
     return null;
   });
+
   const toggleMenu = (menu) => {
     setOpenMenu(openMenu === menu ? null : menu);
   };
@@ -38,23 +43,19 @@ const Sidebar = ({ isOpen, onClose }) => {
       {/* ===== HEADER ===== */}
       <div className="flex items-center justify-between p-4">
         <div className="flex items-center gap-3">
-          {/* Logo / Icon */}
           <img
             src={headerImage}
             alt="Logo Desa"
             className="w-10 h-10 rounded object-contain"
           />
-
-          {/* Text */}
           <div className="flex flex-col">
-            <p className="text-xs text-gray-500 dark:text-gray-400 mb-0.01">
+            <p className="text-xs text-gray-500 dark:text-gray-400">
               Sistem Administrasi Desa
             </p>
             <h1 className="font-bold text-lg leading-snug">Karang Bongkot</h1>
           </div>
         </div>
 
-        {/* Close button (mobile) */}
         <button
           onClick={onClose}
           className="lg:hidden text-gray-600 dark:text-gray-300"
@@ -67,6 +68,7 @@ const Sidebar = ({ isOpen, onClose }) => {
       <nav className="p-4 space-y-1 text-sm">
         <MenuItem icon={LayoutDashboard} label="Dashboard" to="/dashboard" />
 
+        {/* ===== DATA PENDUDUK ===== */}
         <MenuDropdown
           icon={Users}
           label="Data Penduduk"
@@ -80,6 +82,7 @@ const Sidebar = ({ isOpen, onClose }) => {
           <SubMenuItem label="Penduduk Pindah" to="/penduduk/pindah" />
         </MenuDropdown>
 
+        {/* ===== SURAT ===== */}
         <MenuDropdown
           icon={FileText}
           label="Surat"
@@ -92,6 +95,32 @@ const Sidebar = ({ isOpen, onClose }) => {
           <SubMenuItem label="Arsip Surat" to="/surat/arsip" />
         </MenuDropdown>
 
+        {/* ===== PENGADUAN ===== */}
+        <MenuDropdown
+          icon={MessageSquare}
+          label="Pengaduan"
+          isOpen={openMenu === "pengaduan"}
+          active={location.pathname.startsWith("/pengaduan")}
+          onClick={() => toggleMenu("pengaduan")}
+        >
+          <SubMenuItem label="Daftar Pengaduan" to="/pengaduan" />
+          <SubMenuItem label="Pengaduan Baru" to="/pengaduan/tambah" />
+        </MenuDropdown>
+
+        {/* ===== MANAJEMEN KEUANGAN ===== */}
+        <MenuDropdown
+          icon={Wallet}
+          label="Manajemen Keuangan"
+          isOpen={openMenu === "keuangan"}
+          active={location.pathname.startsWith("/keuangan")}
+          onClick={() => toggleMenu("keuangan")}
+        >
+          <SubMenuItem label="Kas Desa" to="/keuangan/kas" />
+          <SubMenuItem label="Pemasukan" to="/keuangan/pemasukan" />
+          <SubMenuItem label="Pengeluaran" to="/keuangan/pengeluaran" />
+          <SubMenuItem label="Laporan Keuangan" to="/keuangan/laporan" />
+        </MenuDropdown>
+
         <MenuItem icon={Settings} label="Pengaturan" to="/pengaturan" />
       </nav>
     </aside>
@@ -100,13 +129,14 @@ const Sidebar = ({ isOpen, onClose }) => {
 
 export default Sidebar;
 
+/* ================= COMPONENTS ================= */
+
 const MenuItem = ({ icon: Icon, label, to }) => (
   <NavLink
     to={to}
     className={({ isActive }) =>
       `
-      w-full flex items-center gap-3 px-3 py-2 rounded-md
-      transition
+      w-full flex items-center gap-3 px-3 py-2 rounded-md transition
       ${
         isActive
           ? "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300 font-medium"
@@ -132,8 +162,7 @@ const MenuDropdown = ({
     <button
       onClick={onClick}
       className={`
-        w-full flex items-center justify-between
-        px-3 py-2 rounded-md transition
+        w-full flex items-center justify-between px-3 py-2 rounded-md transition
         ${
           active
             ? "bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300"
