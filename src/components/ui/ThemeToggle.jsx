@@ -12,11 +12,13 @@ const ThemeToggle = () => {
         flex items-center justify-center
         bg-gray-100 dark:bg-gray-800
         hover:bg-gray-200 dark:hover:bg-gray-700
+        border border-gray-300 dark:border-gray-600
+        text-gray-700 dark:text-white
         transition
       "
       aria-label="Toggle Theme"
     >
-      {theme === "light" ? <FiMoon /> : <FiSun />}
+      {theme === "light" ? <FiMoon size={18} /> : <FiSun size={18} />}
     </button>
   );
 };
